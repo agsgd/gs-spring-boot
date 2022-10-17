@@ -60,5 +60,5 @@ stages:
             inputs:
               azureSubscription: 'Free Trial(7cc7f23a-5141-4a94-9a17-e28adaebddba)'
               appType: 'webAppLinux'
-              appName: '$(Gabbar-web)'
+              appName: 'Gabbar-web'
               package: '$(System.ArtifactsDirectory)/drop/**/target/*.?(war|jar)'
