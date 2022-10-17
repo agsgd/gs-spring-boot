@@ -62,3 +62,26 @@ stages:
               appType: 'webAppLinux'
               appName: 'Gabbar-web'
               package: '$(System.ArtifactsDirectory)/drop/**/target/*.?(war|jar)'
+- stage: Deploy2
+  displayName: Deploy aks
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeployLinuxWebApponaks
+    displayName: Deploy aks App
+    environment: 'development'
+    pool: 
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@1
+            displayName: 'Download Pipeline Artifact'
+            inputs:
+              buildType: 'current'
+
+          - task: KubernetesManifest@0
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'aks-devops'     
