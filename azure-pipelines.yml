@@ -1,4 +1,5 @@
 # Maven package Java project Web App to Linux on Azure
+
 # Build your Java project and deploy it to Azure as a Linux web app
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -81,7 +82,13 @@ stages:
             inputs:
               buildType: 'current'
 
-          - task: KubernetesManifest@0
+          # - task: KubernetesManifest@0
+          #   inputs:
+          #     action: 'deploy'
+          #     kubernetesServiceConnection: 'aks-devops'     
+          - task: SonarQubePrepare@5
             inputs:
-              action: 'deploy'
-              kubernetesServiceConnection: 'aks-devops'     
+              SonarQube: 'sonarqubesever'
+              scannerMode: 'CLI'
+              configMode: 'file'     
+          - task: SonarQubeAnalyze@5
