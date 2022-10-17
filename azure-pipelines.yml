@@ -68,5 +68,5 @@ stages:
             inputs:
               azureSubscription: $(azureSubscription)
               appType: webAppLinux
-              appName: $(webAppName)
+              appName: $(Gabbar-web)
               package: '$(System.ArtifactsDirectory)/drop/**/target/*.?(war|jar)'
